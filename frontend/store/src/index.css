@@ -724,11 +724,13 @@ img {
 }
 
 .booking-date-label {
-  font-family: var(--font-serif);
-  font-size: 1.3rem;
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
   font-weight: 400;
   margin-bottom: 1.5rem;
-  text-transform: capitalize;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text);
 }
 
 .booking-loading {
