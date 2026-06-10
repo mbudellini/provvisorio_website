@@ -2,6 +2,10 @@ const cloudinary = require('../config/cloudinary')
 
 const uploadImage = async (req, res) => {
   try {
+    // Handle multer file size limit error
+    if (req.fileValidationError) {
+      return res.status(400).json({ ok: false, message: req.fileValidationError })
+    }
     if (!req.file) {
       return res.status(400).json({ ok: false, message: 'Nessun file caricato' })
     }
@@ -11,7 +15,6 @@ const uploadImage = async (req, res) => {
       const stream = cloudinary.uploader.upload_stream(
         {
           folder: 'provvisorio',
-          allowed_formats: ['jpg', 'png', 'webp'],
         },
         (error, result) => {
           if (error) reject(error)
