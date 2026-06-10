@@ -602,7 +602,9 @@ img {
 
 .about-text {
   color: var(--color-text-light);
-  font-size: 1.05rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   line-height: 1.8;
 }
 

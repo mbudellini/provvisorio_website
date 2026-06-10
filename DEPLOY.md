@@ -56,23 +56,35 @@ VITE_API_URL=https://provvisorio-backend.vercel.app/api
 
 ---
 
-## 3. Admin (pannello admin)
+## 3. Admin (pannello admin) — deploy con Surge.sh
 
-### Su Vercel:
-1. Crea nuovo progetto → Importa stessa repo GitHub
-2. **Root Directory**: `frontend/admin`
-3. **Framework Preset**: Vite
-4. **Build Command**: `npm run build`
-5. **Output Directory**: `dist`
+### Setup Surge (solo la prima volta):
+```bash
+npx surge login
+```
+(Inserisci email e password quando richiesto)
 
-### Environment Variables:
+### Deploy:
+```bash
+cd frontend/admin
+npm run build
+npx surge dist provvisorio-admin.surge.sh
 ```
-VITE_API_URL=https://provvisorio-backend.vercel.app/api
+
+Oppure usa lo script automatico:
+```bash
+cd frontend/admin
+./deploy-surge.sh provvisorio-admin.surge.sh
 ```
+
+### Come funziona:
+- `.env.production` contiene `VITE_API_URL=https://provvisorio-website.vercel.app/api`
+- Vite usa automaticamente `.env.production` quando fai `npm run build`
+- `.env` (locale) punta a `http://localhost:4444/api` per sviluppo
 
 ### Dopo il deploy:
-- L'admin sarà accessibile al suo URL
-- **Consigliato**: proteggere con Vercel Password Protection (Pro plan)
+- Admin accessibile a: `https://provvisorio-admin.surge.sh`
+- Surge è gratuito, HTTPS incluso, nessun limite di build
 
 ---
 

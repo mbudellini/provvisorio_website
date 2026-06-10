@@ -25,19 +25,7 @@ function ProtectedRoute({ children }) {
       </Center>
     )
   }
-  return user ? <Layout>{children}</Layout> : <Navigate to="/login" />
-}
-
-function PublicRoute({ children }) {
-  const { user, loading } = useAuth()
-  if (loading) {
-    return (
-      <Center h="100vh">
-        <Loader />
-      </Center>
-    )
-  }
-  return user ? <Navigate to="/" /> : children
+  return user ? <Layout>{children}</Layout> : <Login />
 }
 
 function App() {
@@ -47,14 +35,6 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-            <Route
-              path="/login"
-              element={
-                <PublicRoute>
-                  <Login />
-                </PublicRoute>
-              }
-            />
             <Route
               path="/"
               element={
