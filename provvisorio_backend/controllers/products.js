@@ -5,14 +5,22 @@ const getAll = async (req, res) => {
   try {
     const filter = {}
     if (req.query.collezione) {
-      // Support filtering by collection slug or ObjectId
+      // Support filtering by collection slug or ObjectId (flexible matching)
       const Collezione = require('../models/Collezione')
-      const col = await Collezione.findOne({
-        $or: [
-          { _id: req.query.collezione.match(/^[0-9a-fA-F]{24}$/) ? req.query.collezione : null },
-          { slug: req.query.collezione }
-        ]
-      })
+      const rawSlug = req.query.collezione.trim()
+      let col = null
+      // Try ObjectId first
+      if (rawSlug.match(/^[0-9a-fA-F]{24}$/)) {
+        col = await Collezione.findById(rawSlug)
+      }
+      // Try exact slug, then flexible match
+      if (!col) {
+        col = await Collezione.findOne({ slug: rawSlug })
+      }
+      if (!col) {
+        const escaped = rawSlug.replace(/-/g, ' ').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+        col = await Collezione.findOne({ slug: { $regex: new RegExp(`^\\s*${escaped}\\s*$`, 'i') } })
+      }
       if (col) {
         filter.collezione = col._id
       } else {
