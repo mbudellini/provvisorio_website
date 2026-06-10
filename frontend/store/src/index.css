@@ -391,12 +391,14 @@ img {
 
 /* Section titles */
 .section-title {
-  font-family: var(--font-serif);
-  font-size: 2rem;
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
   font-weight: 400;
   text-align: center;
   margin-bottom: 2.5rem;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text);
 }
 
 /* Product Grid */
@@ -481,10 +483,10 @@ img {
 
 .collection-card-overlay h2 {
   color: white;
-  font-family: var(--font-serif);
-  font-size: 1.8rem;
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
   font-weight: 400;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
 }
 
@@ -602,9 +604,7 @@ img {
 
 .about-text {
   color: var(--color-text-light);
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  font-size: 0.95rem;
   line-height: 1.8;
 }
 
