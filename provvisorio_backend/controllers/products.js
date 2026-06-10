@@ -1,45 +1,47 @@
 const Product = require('../models/Product')
 const Category = require('../models/Category')
 
-const getAll = async (req, res) => {
+  const getAll = async (req, res) => {
   try {
     const filter = {}
     if (req.query.collezione) {
-      // Support filtering by collection slug or ObjectId (flexible matching)
-      const Collezione = require('../models/Collezione')
-      const rawSlug = req.query.collezione.trim()
-      let col = null
-      // Try ObjectId first
-      if (rawSlug.match(/^[0-9a-fA-F]{24}$/)) {
-        col = await Collezione.findById(rawSlug)
-      }
-      // Try exact slug, then flexible match
-      if (!col) {
-        col = await Collezione.findOne({ slug: rawSlug })
-      }
-      if (!col) {
-        const escaped = rawSlug.replace(/-/g, ' ').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-        col = await Collezione.findOne({ slug: { $regex: new RegExp(`^\\s*${escaped}\\s*$`, 'i') } })
-      }
-      if (col) {
-        filter.collezione = col._id
+      const val = req.query.collezione.trim()
+      if (val.match(/^[0-9a-fA-F]{24}$/)) {
+        // ObjectId passato direttamente dal frontend — usalo come filtro
+        filter.collezione = val
       } else {
-        return res.json([])
+        // È uno slug — cerca la collezione corrispondente
+        const Collezione = require('../models/Collezione')
+        let col = await Collezione.findOne({ slug: val })
+        if (!col) {
+          const escaped = val.replace(/-/g, ' ').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+          col = await Collezione.findOne({ slug: { $regex: new RegExp(`^\\s*${escaped}\\s*$`, 'i') } })
+        }
+        if (col) {
+          filter.collezione = col._id
+        } else {
+          return res.json([])
+        }
       }
     }
     if (req.query.gender) filter.gender = req.query.gender
     if (req.query.category) {
-      // Support filtering by category slug (find the ObjectId first)
-      const cat = await Category.findOne({
-        $or: [
-          { _id: req.query.category.match(/^[0-9a-fA-F]{24}$/) ? req.query.category : null },
-          { slug: req.query.category }
-        ]
-      })
-      if (cat) {
-        filter.category = cat._id
+      const val = req.query.category.trim()
+      if (val.match(/^[0-9a-fA-F]{24}$/)) {
+        // ObjectId passato direttamente dal frontend — usalo come filtro
+        filter.category = val
       } else {
-        return res.json([])
+        // È uno slug — cerca la categoria corrispondente
+        let cat = await Category.findOne({ slug: val })
+        if (!cat) {
+          const escaped = val.replace(/-/g, ' ').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+          cat = await Category.findOne({ slug: { $regex: new RegExp(`^\\s*${escaped}\\s*$`, 'i') } })
+        }
+        if (cat) {
+          filter.category = cat._id
+        } else {
+          return res.json([])
+        }
       }
     }
     const products = await Product.find(filter)
