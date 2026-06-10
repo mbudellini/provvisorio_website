@@ -166,7 +166,7 @@ export default function Header() {
               <Link to="/collections">Collezioni</Link>
             </li>
             <li>
-              <Link to="/products">Shop</Link>
+              <a href="https://www.vinted.it/member/76388098-provvisorioclothing" target="_blank" rel="noopener noreferrer">Shop</a>
             </li>
             <li>
               <a href="#booking-section" onClick={handleAgendaClick} style={{ cursor: 'pointer' }}>Agenda</a>
