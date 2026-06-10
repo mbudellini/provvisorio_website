@@ -11,7 +11,17 @@ const getAll = async (req, res) => {
 
 const getBySlug = async (req, res) => {
   try {
-    const category = await Category.findOne({ slug: req.params.slug })
+    const rawSlug = req.params.slug.trim()
+    const slugVariants = [
+      rawSlug,
+      rawSlug.replace(/-/g, ' '),
+      rawSlug.replace(/-/g, ' ').toLowerCase(),
+    ]
+    let category = null
+    for (const variant of slugVariants) {
+      category = await Category.findOne({ slug: { $regex: new RegExp(`^\\s*${variant.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*$`, 'i') } })
+      if (category) break
+    }
     if (!category) return res.status(404).json({ ok: false, message: 'Categoria non trovata' })
     res.json(category)
   } catch (err) {
