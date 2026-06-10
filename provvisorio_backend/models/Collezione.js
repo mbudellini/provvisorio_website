@@ -31,14 +31,13 @@ const CollectionSchema = new mongoose.Schema({
 })
 
 // Auto-trim and clean slug before saving
-CollectionSchema.pre('save', function(next) {
+CollectionSchema.pre('save', function() {
   if (this.slug) {
     this.slug = this.slug.trim().toLowerCase().replace(/\s+/g, '-').replace(/-+/g, '-')
   }
   if (this.name) {
     this.name = this.name.trim()
   }
-  next()
 })
 
 const Collezione = mongoose.model('Collezione', CollectionSchema)
