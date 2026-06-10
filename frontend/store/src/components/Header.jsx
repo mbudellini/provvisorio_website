@@ -2,18 +2,8 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import api from "../api";
 
-const FALLBACK_CATEGORIES = [
-  { _id: "f1", name: "Jackets", slug: "jackets" },
-  { _id: "f2", name: "Shirts", slug: "shirts" },
-  { _id: "f3", name: "T-Shirts", slug: "t-shirts" },
-  { _id: "f4", name: "Hoodies & Sweatshirts", slug: "hoodies-sweatshirts" },
-  { _id: "f5", name: "Coats & Outerwear", slug: "coats-outerwear" },
-  { _id: "f6", name: "Bags", slug: "bags" },
-  { _id: "f7", name: "Jewelry", slug: "jewelry" },
-];
-
 export default function Header() {
-  const [categories, setCategories] = useState(FALLBACK_CATEGORIES);
+  const [categories, setCategories] = useState([]);
   const [exploreOpen, setExploreOpen] = useState(false);
   const [hoveredGender, setHoveredGender] = useState(null);
   const exploreRef = useRef(null);
