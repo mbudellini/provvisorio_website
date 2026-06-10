@@ -19,8 +19,8 @@ export default function App() {
           <Route path="/collections/:slug" element={<CollectionDetail />} />
           <Route path="/products/:slug" element={<ProductDetail />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="/:gender/:category" element={<CategoryDetail />} />
-          <Route path="/:category" element={<CategoryDetail />} />
+          <Route path="/:gender/:slug" element={<CategoryDetail />} />
+          <Route path="/:slug" element={<CategoryDetail />} />
         </Routes>
       </main>
       <Footer />
