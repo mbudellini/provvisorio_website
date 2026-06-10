@@ -12,16 +12,18 @@ export default function CollectionDetail() {
 
   useEffect(() => {
     setCollection(null)
+    setProducts([])
     setError(null)
     api.get(`/collections/${slug}`).then((res) => {
-      setCollection(res.data)
+      const col = res.data
+      setCollection(col)
+      return api.get(`/products?collezione=${col._id}`)
+    }).then((res) => {
+      const prods = Array.isArray(res.data) ? res.data : res.data.products || []
+      setProducts(prods)
     }).catch(() => {
       setError('Collezione non trovata')
     })
-    api.get(`/products?collezione=${slug}`).then((res) => {
-      const prods = Array.isArray(res.data) ? res.data : res.data.products || []
-      setProducts(prods)
-    }).catch(() => {})
   }, [slug])
 
   if (error) {

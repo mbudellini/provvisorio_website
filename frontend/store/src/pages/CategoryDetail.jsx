@@ -11,15 +11,18 @@ export default function CategoryDetail() {
   const [products, setProducts] = useState([])
 
   useEffect(() => {
+    setCategory(null)
+    setProducts([])
     api.get(`/categories/${slug}`).then((res) => {
-      setCategory(res.data)
-    })
-    let url = `/products?category=${slug}`
-    if (gender) url += `&gender=${gender}`
-    api.get(url).then((res) => {
+      const cat = res.data
+      setCategory(cat)
+      let url = `/products?category=${cat._id}`
+      if (gender) url += `&gender=${gender}`
+      return api.get(url)
+    }).then((res) => {
       const prods = Array.isArray(res.data) ? res.data : res.data.products || []
       setProducts(prods)
-    })
+    }).catch(() => {})
   }, [slug, gender])
 
   if (!category) {
