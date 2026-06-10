@@ -11,7 +11,13 @@ const getAll = async (req, res) => {
 
 const getBySlug = async (req, res) => {
   try {
-    const collection = await Collezione.findOne({ slug: req.params.slug })
+    const slug = req.params.slug.trim()
+    // Try exact match first, then case-insensitive trimmed match
+    let collection = await Collezione.findOne({ slug })
+    if (!collection) {
+      const escaped = slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      collection = await Collezione.findOne({ slug: new RegExp(`^\\s*${escaped}\\s*$`, 'i') })
+    }
     if (!collection) return res.status(404).json({ ok: false, message: 'Collezione non trovata' })
     res.json(collection)
   } catch (err) {

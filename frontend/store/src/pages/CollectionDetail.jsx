@@ -8,15 +8,30 @@ export default function CollectionDetail() {
   const [collection, setCollection] = useState(null)
   const [products, setProducts] = useState([])
 
+  const [error, setError] = useState(null)
+
   useEffect(() => {
+    setCollection(null)
+    setError(null)
     api.get(`/collections/${slug}`).then((res) => {
       setCollection(res.data)
+    }).catch(() => {
+      setError('Collezione non trovata')
     })
     api.get(`/products?collezione=${slug}`).then((res) => {
       const prods = Array.isArray(res.data) ? res.data : res.data.products || []
       setProducts(prods)
-    })
+    }).catch(() => {})
   }, [slug])
+
+  if (error) {
+    return (
+      <div className="page">
+        <p className="empty">{error}</p>
+        <p style={{ textAlign: 'center' }}><Link to="/collections">Torna alle collezioni</Link></p>
+      </div>
+    )
+  }
 
   if (!collection) {
     return <div className="page"><p className="loading">Caricamento...</p></div>

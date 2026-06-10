@@ -4,7 +4,21 @@ const Category = require('../models/Category')
 const getAll = async (req, res) => {
   try {
     const filter = {}
-    if (req.query.collezione) filter.collezione = req.query.collezione
+    if (req.query.collezione) {
+      // Support filtering by collection slug or ObjectId
+      const Collezione = require('../models/Collezione')
+      const col = await Collezione.findOne({
+        $or: [
+          { _id: req.query.collezione.match(/^[0-9a-fA-F]{24}$/) ? req.query.collezione : null },
+          { slug: req.query.collezione }
+        ]
+      })
+      if (col) {
+        filter.collezione = col._id
+      } else {
+        return res.json([])
+      }
+    }
     if (req.query.gender) filter.gender = req.query.gender
     if (req.query.category) {
       // Support filtering by category slug (find the ObjectId first)
