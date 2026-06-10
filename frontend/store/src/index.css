@@ -895,18 +895,175 @@ img {
   border-color: var(--color-accent);
 }
 
+/* Hamburger Button */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 110;
+}
+
+.hamburger-line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--color-text);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hamburger-btn.open .hamburger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger-btn.open .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn.open .hamburger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-bg);
+  z-index: 99;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mobile-menu.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-nav-links {
+  list-style: none;
+  padding: 1rem 0;
+}
+
+.mobile-nav-item {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.mobile-nav-btn,
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem 2rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.mobile-nav-btn:hover,
+.mobile-nav-link:hover {
+  background: #f9f9f9;
+}
+
+.mobile-nav-btn.active {
+  color: var(--color-text);
+}
+
+.mobile-nav-arrow {
+  transition: transform 0.3s ease;
+}
+
+.mobile-nav-arrow.open {
+  transform: rotate(180deg);
+}
+
+.mobile-explore-content {
+  padding: 0;
+}
+
+.mobile-gender-section {
+  border-top: 1px solid var(--color-border);
+}
+
+.mobile-gender-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.8rem 2rem 0.8rem 3rem;
+  font-family: inherit;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-light);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.mobile-gender-btn:hover {
+  background: #f9f9f9;
+}
+
+.mobile-category-list {
+  padding: 0.25rem 0;
+}
+
+.mobile-category-link {
+  display: block;
+  padding: 0.6rem 2rem 0.6rem 4rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-light);
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s;
+}
+
+.mobile-category-link:hover {
+  color: var(--color-text);
+  background: #f9f9f9;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .header-inner {
     height: 60px;
+    padding: 0 1.25rem;
   }
 
   .logo img {
     height: 50px;
   }
 
-  .nav-links {
-    gap: 1rem;
+  .desktop-nav {
+    display: none;
+  }
+
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .mobile-menu {
+    display: block;
   }
 
   .hero {
@@ -935,5 +1092,9 @@ img {
 
   .booking-calendar-wrapper {
     justify-content: center;
+  }
+
+  .page {
+    padding: 2rem 1.25rem;
   }
 }
