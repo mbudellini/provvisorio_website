@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-const connectDB = require('./connectDB')
 
 const app = express()
 
@@ -18,8 +17,5 @@ app.use('/api/upload', require('./routes/upload'))
 app.use('/api/hero-images', require('./routes/heroImages'))
 app.use('/api/weekly-slots', require('./routes/weeklySlots'))
 app.use('/api/appointments', require('./routes/appointments'))
-
-// Connect to DB
-connectDB()
 
 module.exports = app
