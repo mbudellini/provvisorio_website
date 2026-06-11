@@ -347,10 +347,11 @@ img {
 }
 
 .hero h1 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 400;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   margin-bottom: 1rem;
 }
 
@@ -511,9 +512,11 @@ img {
 }
 
 .product-info h1 {
-  font-family: var(--font-serif);
-  font-size: 2rem;
+  font-family: var(--font-sans);
+  font-size: 1.3rem;
   font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
 
@@ -636,9 +639,11 @@ img {
 }
 
 .privacy-content h3 {
-  font-family: var(--font-serif);
-  font-size: 1.2rem;
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
   font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   color: var(--color-text);
   margin-bottom: 0.75rem;
 }
@@ -787,9 +792,11 @@ img {
 }
 
 .booking-form-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 1.1rem;
   font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   margin-bottom: 1rem;
 }
 
