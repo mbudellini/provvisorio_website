@@ -1,5 +1,0 @@
-# Con credenziali personalizzate
-npm run seed-admin -- tuo_username tua_password
-
-# Con credenziali di default (admin / admin123)
-npm run seed-admin
