@@ -206,7 +206,7 @@ export default function Products() {
               </Table.Td>
               <Table.Td>{p.collezione?.name || '-'}</Table.Td>
               <Table.Td>{p.price ? `€${p.price}` : '-'}</Table.Td>
-              <Table.Td>{p.gender === 'donna' ? 'Donna' : 'Uomo'}</Table.Td>
+              <Table.Td>{p.gender === 'donna' ? 'Donna' : p.gender === 'unisex' ? 'Unisex' : 'Uomo'}</Table.Td>
               <Table.Td>{p.featured ? 'Sì' : 'No'}</Table.Td>
               <Table.Td>
                 <Group gap="xs">
@@ -286,6 +286,7 @@ export default function Products() {
               data={[
                 { value: 'uomo', label: 'Uomo' },
                 { value: 'donna', label: 'Donna' },
+                { value: 'unisex', label: 'Unisex' },
               ]}
               {...form.getInputProps('gender')}
             />

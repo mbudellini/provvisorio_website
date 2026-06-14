@@ -21,7 +21,7 @@ export default function Products() {
 
   const filteredProducts = products.filter((p) => {
     if (selectedCategory && (p.category?._id || p.category) !== selectedCategory) return false
-    if (selectedGender && p.gender !== selectedGender) return false
+    if (selectedGender && p.gender !== selectedGender && p.gender !== 'unisex') return false
     return true
   })
 

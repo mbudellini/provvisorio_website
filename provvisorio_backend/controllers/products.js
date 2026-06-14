@@ -24,7 +24,10 @@ const Category = require('../models/Category')
         }
       }
     }
-    if (req.query.gender) filter.gender = req.query.gender
+    if (req.query.gender) {
+      // Include unisex products in both uomo and donna filters
+      filter.gender = { $in: [req.query.gender, 'unisex'] }
+    }
     if (req.query.category) {
       const val = req.query.category.trim()
       if (val.match(/^[0-9a-fA-F]{24}$/)) {
